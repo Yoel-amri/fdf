@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-amri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yel-amri <yel-amri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 15:17:41 by yel-amri          #+#    #+#             */
-/*   Updated: 2018/10/22 10:16:48 by yel-amri         ###   ########.fr       */
+/*   Updated: 2019/09/26 23:59:33 by yel-amri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,5 @@ void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int				*ft_poscount(char const *s, char c);
 int				ft_countwords(char const *s, char c);
+int				ft_lenc(char const *s, char c);
 #endif

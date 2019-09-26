@@ -5,7 +5,7 @@ void	ft_free(char **tab)
 	int	i;
 
 	i = -1;
-	if (**tab == NULL)
+	if (tab == NULL)
 		return ;
 	while (tab[++i] != NULL)
 	{
@@ -28,6 +28,7 @@ int		**allocate(int i, int j)
 		tab[k] = (int*)malloc(sizeof(int) * i);
 		k++;
 	}
+    return (tab);
 }
 
 int		**read_map(int fd)
@@ -41,7 +42,7 @@ int		**read_map(int fd)
 	i = 0;
 	j = 0;
 	count = 0;
-	while (get_next_line(&line, fd))
+	while (get_next_line(fd, &line))
 	{
 		if (count != i)
 			return (0);
@@ -68,4 +69,7 @@ int     main(int argc, char **argv)
     fd = open(argv[1], O_RDWR);
     tab = read_map(fd);
 	close(fd);
+    fd = open(argv[1], O_RDWR);
+    tab = fill_tab(fd, tab);
+    ft_putnbr(tab[0][0]);
 }

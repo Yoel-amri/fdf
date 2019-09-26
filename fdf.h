@@ -5,5 +5,6 @@
 #include "get_next_line/get_next_line.h"
 #include <fcntl.h>
 
+int     **fill_tab(int fd, int **tab);
 
 #endif

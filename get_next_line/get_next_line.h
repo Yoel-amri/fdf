@@ -6,7 +6,7 @@
 /*   By: yel-amri <yel-amri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/24 15:31:56 by yel-amri          #+#    #+#             */
-/*   Updated: 2019/09/26 21:39:27 by yel-amri         ###   ########.fr       */
+/*   Updated: 2019/09/26 23:43:28 by yel-amri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 # define GET_NEXT_LINE_H
 # define BUFF_SIZE 1
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <unistd.h>
 
 int		get_next_line(int fd, char **line);
 int		get_line(char **s, char **line, int fd, int ret);
+int     **fill_tab(int fd, int **tab);
+
 #endif
