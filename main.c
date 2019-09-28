@@ -16,22 +16,24 @@ void	ft_free(char **tab)
 	tab = NULL;
 }
 
-int		**allocate(int i, int j)
+int		**allocate(int i, int j, t_map *map)
 {
 	int k;
 	int **tab;
 
 	k = 0;
 	tab = (int**)malloc(sizeof(int*) * j);
-	while (k < i)
+	map->cords = (t_cord**)malloc(sizeof(t_cord*) * j);
+	while (k < j)
 	{
 		tab[k] = (int*)malloc(sizeof(int) * i);
+		map->cords[k] = (t_cord*)malloc(sizeof(t_cord) * i);
 		k++;
 	}
     return (tab);
 }
 
-int		**read_map(int fd)
+int		**read_map(int fd, t_map *map)
 {
 	char	*line;
 	char	**tab;
@@ -50,26 +52,70 @@ int		**read_map(int fd)
 		while (tab[i] != NULL)
 			i++;
 		count = i;
-
 		ft_free(tab);
 		j++;
 	}
-	return (allocate(i,j));
+	map->x_m = i;
+	map->y_m = j;
+	return (allocate(i,j, map));
+}
+
+void	fill_cords(t_map *map)
+{
+	int x;
+	int y;
+
+	x = 0;
+	y = 0;
+	while (y < map->y_m)
+	{
+		x = 0;
+		while (x < map->x_m)
+		{
+			map->cords[y][x].x = (x * map->zoom) + map->xplus;
+			map->cords[y][x].y = (y * map->zoom) + map->yplus;
+			map->cords[y][x].z = map->tab[y][x] + map->height;
+			if (map->projection == 1)
+				iso(&map->cords[y][x].x, &map->cords[y][x].y, map->cords[y][x].z);
+			x++;
+		}
+		y++;
+	}
 }
 
 int     main(int argc, char **argv)
 {
     int fd;
-	int	**tab;
+	int x = 0, y = 0;
+	//int oldx = 0;
+	// int oldy = 0;
+    t_map map;
+    map.margex = 50;
+	map.projection = 0;
+	map.zoom = 50;
+	map.xplus = 0;
+	map.yplus = 0;
+	map.height = 0;
+
+
     if (argc != 2)
     {
         ft_putstr("ERROR\n");
         return (0);
     }
     fd = open(argv[1], O_RDWR);
-    tab = read_map(fd);
+    map.tab = read_map(fd, &map);
 	close(fd);
     fd = open(argv[1], O_RDWR);
-    tab = fill_tab(fd, tab);
-    ft_putnbr(tab[0][0]);
+    map.tab = fill_tab(fd, map.tab);
+	fill_cords(&map);
+
+	x = 0;
+	y = 0;
+	map.mlx_ptr = mlx_init();
+	map.win_ptr = mlx_new_window(map.mlx_ptr, 1400, 1400, "FDF");
+	
+	mlx_hook(map.win_ptr, 2, 1, key_press, &map);
+	fulldraw(&map, 0,0);
+	mlx_loop(map.mlx_ptr);
 }
