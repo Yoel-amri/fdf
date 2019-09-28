@@ -41,15 +41,20 @@ void draw(int x0, int y0, int x1, int y1, t_map *map)
     int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
     int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1; 
     int err = (dx>dy ? dx : -dy)/2, e2;
- 
+    
+    int color;
+    color = 0xffffff;
+    if (x0 < x1 && y0 < y1)
+        color = 0xffa500;
+
     while (1)
     {
-        mlx_pixel_put(map->mlx_ptr, map->win_ptr, x0,y0, 0xff0000);
+        mlx_pixel_put(map->mlx_ptr, map->win_ptr, x0,y0, color);
         if (x0==x1 && y0==y1) break;
         e2 = err;
         if (e2 >-dx) { err -= dy; x0 += sx; }
         if (e2 < dy) { err += dx; y0 += sy; }
-  }
+    }
 }
 
 void	iso(int *x, int *y, int z)
@@ -97,39 +102,41 @@ int     key_press(int keycode, t_map *map)
     else if (keycode == 19)
         map->projection = 0;
     else if (keycode == 27)
-        map->zoom--;
+        map->zoom -= 3;
     else if (keycode == 24)
-        map->zoom++;
+        map->zoom += 3;
     else if (keycode == 126 && map->projection == 1)
     {
-        map->yplus--;
-        map->xplus--;
+        map->yplus -= 10;
+        map->xplus -= 10;
     }
     else if (keycode == 125 && map->projection == 1)
     {
-        map->yplus++;
-        map->xplus++;
+        map->yplus += 10;
+        map->xplus += 10;
     }
     else if (keycode == 123 && map->projection == 1)
     {
-        map->xplus--;
-        map->yplus++;
+        map->xplus -= 10;
+        map->yplus += 10;
     }
     else if (keycode == 124 && map->projection == 1)
     {
-        map->xplus++;
-        map->yplus--;
+        map->xplus += 10;
+        map->yplus -= 10;
     }
     else if (keycode == 126 && map->projection == 0)
-        map->yplus--;
+        map->yplus -= 10;
     else if (keycode == 125 && map->projection == 0)
-        map->yplus++;
+        map->yplus += 10;
     else if (keycode == 123 && map->projection == 0)
-        map->xplus--;
+        map->xplus -= 10;
     else if (keycode == 124 && map->projection == 0)
-        map->xplus++;
+        map->xplus += 10;
     else if (keycode == 6 && map->projection == 1)
-        map->height++;
+        map->height += 3;
+    else if (keycode == 7)
+        map->height -= 3;
         
     fill_cords(map);
     fulldraw(map, 0,0);

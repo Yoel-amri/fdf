@@ -74,9 +74,9 @@ void	fill_cords(t_map *map)
 		{
 			map->cords[y][x].x = (x * map->zoom) + map->xplus;
 			map->cords[y][x].y = (y * map->zoom) + map->yplus;
-			map->cords[y][x].z = map->tab[y][x] + map->height;
+			map->cords[y][x].z = map->tab[y][x];
 			if (map->projection == 1)
-				iso(&map->cords[y][x].x, &map->cords[y][x].y, map->cords[y][x].z);
+				iso(&map->cords[y][x].x, &map->cords[y][x].y, map->cords[y][x].z * map->height);
 			x++;
 		}
 		y++;
@@ -87,8 +87,7 @@ int     main(int argc, char **argv)
 {
     int fd;
 	int x = 0, y = 0;
-	//int oldx = 0;
-	// int oldy = 0;
+
     t_map map;
     map.margex = 50;
 	map.projection = 0;
