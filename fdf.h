@@ -32,7 +32,9 @@ typedef struct  s_map
     t_cord      **cords;
 }               t_map;
 
-
+void	ft_free(char **tab);
+int		**allocate(int i, int j, t_map *map);
+int		**read_map(int fd, t_map *map);
 void    draw(int x0, int y0, int x1, int y1, t_map *map);
 void	iso(int *x, int *y, int z);
 int     **fill_tab(int fd, int **tab);

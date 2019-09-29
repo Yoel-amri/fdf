@@ -1,6 +1,6 @@
 FLAGS = -Wall -Werror -Wextra
 NAME = fdf
-OBJECTS = test.o main.o get_next_line/get_next_line.o
+OBJECTS = test.o main.o get_next_line/get_next_line.o get_board_info.o
 LIBFT = libft/libft.a
 FDF_VAR = /usr/local/lib -lmlx -framework OpenGL -framework AppKit
 
