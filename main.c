@@ -87,19 +87,42 @@ void	fill_cords(t_map *map)
 	}
 }
 
+void	rotation(t_map *map)
+{
+	int x;
+	int y;
+	//double angle;
+
+	x = 0;
+	y = 0;
+	//map->angle = 0.17453292519;
+	while (y < map->y_m)
+	{
+		x = 0;
+		while (x < map->x_m)
+		{
+			map->cords[y][x].x = (map->cords[y][x].x * cos(map->angle)) - (map->cords[y][x].y * sin(map->angle));
+			map->cords[y][x].y = (map->cords[y][x].x * sin(map->angle)) + (map->cords[y][x].y * cos(map->angle));
+			x++;
+		}
+		y++;
+	}
+}
+
 int     main(int argc, char **argv)
 {
     int fd;
 	t_map map;
 
     map.margex = 50;
-	map.projection = 1;
+	map.projection = 0;
 	map.zoom = 10;
 	map.xplus = 1450;
 	map.yplus = -100;
 	map.height = 1;
 	map.color = 0xFFFFFF;
 	map.error = 0;
+	map.angle = 0.01745329251;
     
     fd = open(argv[1], O_RDWR);
 	if (argc != 2 || fd == -1)
@@ -111,7 +134,10 @@ int     main(int argc, char **argv)
 	close(fd);
     fd = open(argv[1], O_RDWR);
     map.tab = fill_tab(fd, map.tab);
+	
+	rotation(&map);
 	fill_cords(&map);
+	//rotation(&map);
 	map.mlx_ptr = mlx_init();
 	map.win_ptr = mlx_new_window(map.mlx_ptr, 5000, 2760, "FDF");
 	mlx_hook(map.win_ptr, 2, 1, key_press, &map);

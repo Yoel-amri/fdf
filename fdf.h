@@ -16,6 +16,7 @@ typedef struct  s_cord
 
 typedef struct  s_map
 {
+    double      angle;
     int         error;
     int         color;
     int         zoom;
@@ -39,5 +40,6 @@ int     **fill_tab(int fd, int **tab);
 void    fulldraw(t_map *map, int x, int y);
 int     key_press(int keycode, t_map *param);
 void	fill_cords(t_map *map);
+void	rotation(t_map *map);
 
 #endif

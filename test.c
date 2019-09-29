@@ -161,7 +161,22 @@ int     key_press(int keycode, t_map *map)
         map->height -= 3;
     else if (keycode == 53)
         free_map(map);
+    else if (keycode == 15)
+    {
+        map->angle += 0.01745329251;
+        rotation(map);
+        fulldraw(map, 0,0);
+        return (1);
+    }
+    else if (keycode == 17)
+    {
+        map->angle -= 0.01745329251;
+        rotation(map);
+        fulldraw(map, 0,0);
+    }
+
     fill_cords(map);
+    rotation(map);
     fulldraw(map, 0,0);
     return (1);
 }
