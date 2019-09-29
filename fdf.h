@@ -16,6 +16,8 @@ typedef struct  s_cord
 
 typedef struct  s_map
 {
+    int         error;
+    int         color;
     int         zoom;
     int         height;
     int         xplus;

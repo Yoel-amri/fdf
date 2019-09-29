@@ -41,20 +41,16 @@ void draw(int x0, int y0, int x1, int y1, t_map *map)
     int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
     int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1; 
     int err = (dx>dy ? dx : -dy)/2, e2;
-    
-    int color;
-    color = 0xffffff;
-    if (x0 < x1 && y0 < y1)
-        color = 0xffa500;
 
     while (1)
     {
-        mlx_pixel_put(map->mlx_ptr, map->win_ptr, x0,y0, color);
+        mlx_pixel_put(map->mlx_ptr, map->win_ptr, x0,y0, map->color);
         if (x0==x1 && y0==y1) break;
         e2 = err;
         if (e2 >-dx) { err -= dy; x0 += sx; }
         if (e2 < dy) { err += dx; y0 += sy; }
     }
+    map->color = 0xFFFFFF;
 }
 
 void	iso(int *x, int *y, int z)
@@ -76,6 +72,10 @@ void    fulldraw(t_map *map, int x, int y)
 		x = 0;
 		while (x < map->x_m - 1)
 		{
+            if (map->cords[y][x].z - map->cords[y][x + 1].z != 0 )
+                map->color = 0xffa500;
+            else if (map->cords[y][x].z > 0 && (map->cords[y][x].z - map->cords[y][x + 1].z == 0))
+                map->color = 0xFF0000;
 			draw(map->cords[y][x].x ,map->cords[y][x].y ,map->cords[y][x + 1].x ,map->cords[y][x + 1].y ,map);
 			x++;
 		}
@@ -86,14 +86,36 @@ void    fulldraw(t_map *map, int x, int y)
 	while (x < map->x_m)
 	{
 		y = 0;
+        
 		while (y < map->y_m - 1)
 		{
+            if (map->cords[y][x].z - map->cords[y + 1][x].z != 0)
+                map->color = 0xffa500;
+            else if (map->cords[y][x].z > 0 && (map->cords[y][x].z - map->cords[y + 1][x].z == 0))
+                map->color = 0xFF0000;
 			draw(map->cords[y][x].x ,map->cords[y][x].y ,map->cords[y + 1][x].x ,map->cords[y + 1][x].y ,map);
 			y++;
 		}
 		x++;
 	}
 }
+
+void    free_map(t_map *map)
+{
+    int x;
+    int y;
+
+    x = 0;
+    y = 0;
+    while (y < map->y_m)
+    {
+        free(map->tab[y]);
+        free(map->cords[y]);
+        y++;
+    }
+    exit(1);
+}
+
 
 int     key_press(int keycode, t_map *map)
 {
@@ -137,7 +159,8 @@ int     key_press(int keycode, t_map *map)
         map->height += 3;
     else if (keycode == 7)
         map->height -= 3;
-        
+    else if (keycode == 53)
+        free_map(map);
     fill_cords(map);
     fulldraw(map, 0,0);
     return (1);

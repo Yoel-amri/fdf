@@ -47,7 +47,7 @@ int		**read_map(int fd, t_map *map)
 	while (get_next_line(fd, &line))
 	{
 		if (count != i)
-			return (0);
+			map->error = 1;
 		tab = ft_strsplit(line, ' ');
 		while (tab[i] != NULL)
 			i++;
@@ -57,6 +57,11 @@ int		**read_map(int fd, t_map *map)
 	}
 	map->x_m = i;
 	map->y_m = j;
+	if (map->error == 1)
+	{
+		ft_putstr("ERROR\n");
+		exit(1);
+	}
 	return (allocate(i,j, map));
 }
 
@@ -90,12 +95,13 @@ int     main(int argc, char **argv)
 
     t_map map;
     map.margex = 50;
-	map.projection = 0;
-	map.zoom = 50;
-	map.xplus = 0;
-	map.yplus = 0;
-	map.height = 0;
-
+	map.projection = 1;
+	map.zoom = 1;
+	map.xplus = 2500;
+	map.yplus = 100;
+	map.height = 1;
+	map.color = 0xFFFFFF;
+	map.error = 0;
 
     if (argc != 2)
     {
@@ -104,15 +110,19 @@ int     main(int argc, char **argv)
     }
     fd = open(argv[1], O_RDWR);
     map.tab = read_map(fd, &map);
+
+	
 	close(fd);
     fd = open(argv[1], O_RDWR);
     map.tab = fill_tab(fd, map.tab);
-	fill_cords(&map);
+	map.zoom = 10;
 
+	fill_cords(&map);
 	x = 0;
 	y = 0;
 	map.mlx_ptr = mlx_init();
-	map.win_ptr = mlx_new_window(map.mlx_ptr, 1400, 1400, "FDF");
+
+	map.win_ptr = mlx_new_window(map.mlx_ptr, 5000, 2760, "FDF");
 	
 	mlx_hook(map.win_ptr, 2, 1, key_press, &map);
 	fulldraw(&map, 0,0);
