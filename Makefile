@@ -1,36 +1,29 @@
+FLAGS = -Wall -Werror -Wextra
 NAME = fdf
+OBJECTS = test.o main.o get_next_line/get_next_line.o
+LIBFT = libft/libft.a
+FDF_VAR = /usr/local/lib -lmlx -framework OpenGL -framework AppKit
 
-SRCS +=	main.c
-SRCS +=	test.c
-SRCS +=	get_next_line/get_next_line.c
 
+all : $(NAME)
 
-FLAGS = -Wall -Werror -Wextra 
-
-OBJ = $(SRCS:.c=.o)
-
-INC = inc/
-LIBT = libft.a
-LIB_PATH = libft/
-FDF_SHIT = /usr/local/lib -lmlx -framework OpenGL -framework AppKit
-
-all: LBT $(NAME)
-
-$(NAME): $(OBJ) $(LIB_PATH)$(LIBT)
-	@gcc  $(FLAGS) -I $(INC) $(OBJ) -L $(FDF_SHIT) $(LIB_PATH)$(LIBT) -o $(NAME)
-
+$(NAME) : $(OBJECTS) $(LIBFT)
+	@gcc $(FLAGS)  $(OBJECTS) $(LIBFT) -L $(FDF_VAR) -o $(NAME)
+	@echo "\033[0;32m-------------------------------------------------------------------------------\033[0m"
+	@echo "\033[0;32m| >>>>>>>>>>>>>>>>>>>>>>>>>> Compiled Successfully <<<<<<<<<<<<<<<<<<<<<<<<<< |\033[0m"
+	@echo "\033[0;32m-------------------------------------------------------------------------------\033[0m"
 %.o : %.c
-	@gcc $(FLAGS) -c $< -o $@
-
-LBT:
-	@make -C $(LIB_PATH)
-
-clean:
-	@make clean -C $(LIB_PATH)
-	@rm -f $(OBJ)
-
-fclean: clean
-	@make fclean -C $(LIB_PATH)
+	@gcc $(FLAGS) -g -c $< -o $@
+$(LIBFT):
+	@make -C libft/
+clean :
+	@make clean -C libft/
+	@rm -f $(OBJECTS)
+	@echo "\033[1;33m-------------------------------------------------------------------------------\033[0m"
+	@echo "\033[1;33m| >>>>>>>>>>>>>>>>>>>>>>>>>>  Cleaned Successfully <<<<<<<<<<<<<<<<<<<<<<<<<< |\033[0m"
+	@echo "\033[1;33m-------------------------------------------------------------------------------\033[0m"
+fclean : clean
 	@rm -f $(NAME)
+	@make fclean -C libft/
 
-re: fclean all
+re : fclean all
