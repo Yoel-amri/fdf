@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memmove.c                                          :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-amri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobouzar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 12:02:05 by yel-amri          #+#    #+#             */
-/*   Updated: 2018/10/22 07:56:31 by yel-amri         ###   ########.fr       */
+/*   Created: 2019/04/11 22:40:07 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/04/11 23:21:08 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <strings.h>
 
-void	*ft_memmove(void *str1, const void *str2, size_t n)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	stock[n];
+	const char	*memsrc;
+	char		*memdst;
 
-	if (n > 65535)
-		return (NULL);
-	ft_memcpy(stock, str2, n);
-	ft_memcpy(str1, stock, n);
-	return (str1);
+	memsrc = (const char *)src;
+	memdst = (char *)dst;
+	if (memsrc > memdst)
+		ft_memcpy(dst, src, len);
+	else
+	{
+		while (len--)
+			*(memdst + len) = *(memsrc + len);
+	}
+	return (dst);
 }

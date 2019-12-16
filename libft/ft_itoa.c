@@ -3,49 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-amri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/15 21:10:23 by yel-amri          #+#    #+#             */
-/*   Updated: 2018/10/19 01:41:30 by yel-amri         ###   ########.fr       */
+/*   Created: 2019/04/15 21:45:38 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/09/19 16:24:09 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	void	negative(int *nb, int *signe)
+int				ft_count_digits(long long int nb)
 {
-	if (*nb < 0)
+	int						total;
+	unsigned long long int	nbr;
+
+	total = 0;
+	if (nb < 0)
+		nb *= -1;
+	nbr = (unsigned long long int)nb;
+	while (nbr >= 10)
 	{
-		*nb *= -1;
-		*signe = 1;
+		nbr /= 10;
+		total++;
 	}
+	total++;
+	return (total);
 }
 
-char			*ft_itoa(int nb)
+long long int	check_negative(long long int *n, long long int digitscount)
 {
-	char	*str;
-	int		tmp;
-	int		signe;
-	int		len;
+	digitscount++;
+	*n *= -1;
+	return (digitscount);
+}
 
-	len = 2;
-	tmp = nb;
-	signe = 0;
-	if (nb == -2147483648)
-		return (ft_strdup("-2147483648"));
-	negative(&nb, &signe);
-	while (tmp /= 10)
-		len++;
-	len += signe;
-	if ((str = (char*)malloc(sizeof(char) * (len))) == NULL)
-		return (NULL);
-	str[--len] = '\0';
-	while (len--)
+char			*ft_itoa(long long int n)
+{
+	char					*number;
+	int						i;
+	unsigned long long int	nbr;
+	long long int			digitscount;
+
+	digitscount = ft_count_digits(n);
+	if (n < 0)
+		digitscount = check_negative(&n, digitscount);
+	if (!(number = (char *)malloc(sizeof(char) * (digitscount + 1))))
+		return (0);
+	number[0] = '-';
+	nbr = (unsigned long long int)n;
+	i = digitscount;
+	number[i--] = '\0';
+	while (nbr >= 10)
 	{
-		str[len] = nb % 10 + '0';
-		nb /= 10;
+		number[i--] = '0' + (nbr % 10);
+		nbr /= 10;
 	}
-	if (signe)
-		str[0] = '-';
-	return (str);
+	number[i] = '0' + nbr;
+	return (number);
 }

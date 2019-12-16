@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-amri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobouzar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/11 23:21:21 by yel-amri          #+#    #+#             */
-/*   Updated: 2018/10/18 06:36:20 by yel-amri         ###   ########.fr       */
+/*   Created: 2019/04/12 06:52:49 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/04/12 06:54:30 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,5 @@
 
 int		ft_isascii(int c)
 {
-	unsigned char g;
-
-	if (c >= 0 && c <= 255)
-	{
-		g = (unsigned char)c;
-		if (g <= 127 && g >= 0)
-			return (1);
-	}
-	return (0);
+	return ((c >= 0 && c <= 127) ? 1 : 0);
 }

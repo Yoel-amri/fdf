@@ -1,6 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yel-amri <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/10/18 19:06:40 by yel-amri          #+#    #+#              #
+#    Updated: 2019/10/18 19:06:48 by yel-amri         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 FLAGS = -Wall -Werror -Wextra
 NAME = fdf
-OBJECTS = test.o main.o get_next_line/get_next_line.o get_board_info.o
+OBJECTS = draw.o main.o get_board_info.o \
+			draw_cntl.o
 LIBFT = libft/libft.a
 FDF_VAR = /usr/local/lib -lmlx -framework OpenGL -framework AppKit
 

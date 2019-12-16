@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-amri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobouzar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/11 23:37:14 by yel-amri          #+#    #+#             */
-/*   Updated: 2018/10/18 06:37:41 by yel-amri         ###   ########.fr       */
+/*   Created: 2019/04/12 06:54:57 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/04/12 06:59:36 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 int		ft_isprint(int c)
 {
-	unsigned char g;
-
-	if (c >= 0 && c <= 255)
-	{
-		g = (unsigned char)c;
-		if (g >= 32 && g <= 126)
-			return (1);
-	}
-	return (0);
+	return ((c >= 32 && c < 127) ? 1 : 0);
 }

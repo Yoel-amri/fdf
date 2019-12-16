@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memcpy.c                                           :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-amri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobouzar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 06:36:01 by yel-amri          #+#    #+#             */
-/*   Updated: 2018/10/21 10:59:31 by yel-amri         ###   ########.fr       */
+/*   Created: 2019/04/11 19:59:02 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/04/11 20:48:28 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *str1, const void *str2, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	const char	*s2;
-	char		*s1;
-	size_t		i;
+	char	*str1;
+	char	*str2;
+	size_t	i;
 
-	s1 = (char*)str1;
-	s2 = (char*)str2;
+	str1 = (char*)dst;
+	str2 = (char*)src;
 	i = 0;
-	while (i < n)
+	while (n > i)
 	{
-		s1[i] = s2[i];
+		str1[i] = str2[i];
 		i++;
 	}
-	return (str1);
+	return (dst);
 }

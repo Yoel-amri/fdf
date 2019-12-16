@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-amri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/09 11:33:57 by yel-amri          #+#    #+#             */
-/*   Updated: 2018/10/21 08:52:46 by yel-amri         ###   ########.fr       */
+/*   Created: 2019/04/12 00:55:05 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/09/16 18:13:19 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 char	*ft_strdup(const char *s1)
 {
-	int		i;
-	char	*p;
+	char	*str;
 	int		len;
+	int		i;
 
 	i = 0;
-	len = 0;
-	while (s1[len] != '\0')
-		len++;
-	if ((p = (char*)malloc(sizeof(*s1) * (len + 1))) == NULL)
-		return (NULL);
-	while (s1[i] != '\0')
+	len = ft_strlen(s1);
+	if (!(str = (char*)malloc(sizeof(char) * len + 1)))
+		return (0);
+	while (s1[i])
 	{
-		p[i] = s1[i];
+		str[i] = s1[i];
 		i++;
 	}
-	p[i] = '\0';
-	return (p);
+	str[i] = '\0';
+	return (str);
 }

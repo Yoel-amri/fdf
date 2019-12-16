@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memccpy.c                                          :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-amri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobouzar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/08 07:57:09 by yel-amri          #+#    #+#             */
-/*   Updated: 2018/10/17 22:21:13 by yel-amri         ###   ########.fr       */
+/*   Created: 2019/04/11 20:49:12 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/04/11 22:39:12 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
+#include "libft.h"
 
-void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	unsigned char		*s1;
-	const unsigned char *s2;
-	size_t				i;
+	char			*sdst;
+	unsigned char	*ssrc;
 
-	s1 = (unsigned char*)dest;
-	s2 = (unsigned char*)src;
-	i = 0;
-	while (i < n)
+	sdst = (char *)dst;
+	ssrc = (unsigned char *)src;
+	while (n > 0)
 	{
-		if (s2[i] == (unsigned char)c)
+		if (*ssrc == (unsigned char)c)
 		{
-			s1[i] = s2[i];
-			i++;
-			return (s1 + i);
+			*(sdst++) = *(ssrc++);
+			return (sdst);
 		}
-		s1[i] = s2[i];
-		i++;
+		else
+			*(sdst++) = *(ssrc++);
+		n--;
 	}
 	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-amri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/11 21:34:03 by yel-amri          #+#    #+#             */
-/*   Updated: 2018/10/18 21:43:07 by yel-amri         ###   ########.fr       */
+/*   Created: 2019/04/12 06:31:31 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/08/08 20:18:13 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 int		ft_atoi(const char *str)
 {
-	int i;
-	int a;
-	int j;
+	int				multiplier;
+	long long int	total;
 
-	a = 0;
-	i = 0;
-	j = 0;
-	while (str[i] == '\n' || str[i] == '\t' || str[i] == ' ' ||
-			str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '-')
-		j = 1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
+	multiplier = 1;
+	total = 0;
+	while (*str == ' ' || *str == '\t' || *str == '\n' || *str == '\f' ||
+			*str == '\r' || *str == '\v')
+		str++;
+	if (str[0] == '-')
 	{
-		a = a * 10 + str[i] - '0';
-		i++;
+		multiplier = -1;
+		str++;
 	}
-	if (j == 1)
-		return (-a);
-	else
-		return (a);
+	else if (*str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
+	{
+		total = (total * 10) + *str - '0';
+		str++;
+	}
+	if (total > 2147483647)
+		return (-1);
+	return (total * multiplier);
 }

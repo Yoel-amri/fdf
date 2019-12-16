@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-amri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mobouzar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/14 02:54:31 by yel-amri          #+#    #+#             */
-/*   Updated: 2018/10/19 01:41:44 by yel-amri         ###   ########.fr       */
+/*   Created: 2019/04/13 03:53:29 by mobouzar          #+#    #+#             */
+/*   Updated: 2019/04/13 04:04:36 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,26 @@
 char	*ft_strtrim(char const *s)
 {
 	int		i;
-	int		j;
-	char	*b;
+	int		len;
+	char	*str;
 
-	if (!s)
-		return (0);
-	i = 0;
-	j = ft_strlen(s);
-	b = (char*)s;
-	while (s[j] == ' ' || s[j] == '\n' || s[j] == '\t' || s[j] == '\0')
-		j--;
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		i++;
-	if (s[i] == '\0')
-		return (ft_strdup(s + i));
-	b = ft_strsub(s, i, (j - i + 1));
-	if (b == NULL)
+	if (s == NULL)
 		return (NULL);
-	return (b);
+	len = ft_strlen(s);
+	i = -1;
+	while (s[len - 1] == ' ' || s[len - 1] == '\t' || s[len - 1] == '\n')
+		len--;
+	while (s[++i] == ' ' || s[i] == '\t' || s[i] == '\n')
+		len--;
+	if (len <= 0)
+		len = 0;
+	str = (char*)malloc(sizeof(char) * (len + 1));
+	if (str == NULL)
+		return (NULL);
+	s += i;
+	i = -1;
+	while (++i < len)
+		str[i] = *s++;
+	str[i] = '\0';
+	return (str);
 }
