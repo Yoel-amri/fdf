@@ -96,4 +96,5 @@ int		main(int argc, char **argv)
 	mlx_hook(map.win_ptr, 2, 1, key_press, &map);
 	fulldraw(&map, 0, 0);
 	mlx_loop(map.mlx_ptr);
+
 }
